@@ -23,7 +23,6 @@
         Closed="WindowClosed"
         MinHeight="600"
         MinWidth="800"
-        Title="Dynamo"
         AllowsTransparency="False"
         KeyDown="DynamoView_KeyDown"
         KeyUp="DynamoView_KeyUp"
@@ -496,7 +495,7 @@
                     <MenuItem Header="{x:Static p:Resources.DynamoViewSettingMenu}"
                               Name="SettingsMenu"
                               Focusable="False"
-                              IsEnabled="True">                   
+                              IsEnabled="True">
                         <MenuItem Header="{x:Static p:Resources.DynamoViewSettingMenuEnableDataReporting}"
                                   Name="ToggleIsUsageReportingApprovedCommand"
                                   Command="{Binding Path=ToggleIsUsageReportingApprovedCommand, Source={x:Static service:UsageReportingManager.Instance} }"
@@ -510,15 +509,8 @@
                                   CommandParameter="{Binding  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type controls:DynamoView}}}"
                                   IsChecked="{Binding Path=IsAnalyticsReportingApproved, Mode=OneWay, Source={x:Static service:UsageReportingManager.Instance} }"
                                   ToolTip="{x:Static p:Resources.DynamoViewSettingMenuEnableSummaryReportingTooltip}"
-                                  Focusable="False"/>
-                        <MenuItem Focusable="False" 
-                                  Name="ShowNodeExecution" 
-                                  IsCheckable="True" 
-                                  IsChecked="{Binding ShowRunPreview}" 
-                                  Header="{x:Static p:Resources.DynamoViewSettingShowRunPreview}"
-                                  ToolTipService.ShowOnDisabled="True" 
-                                  ToolTip="{Binding DynamicRunEnabled, Converter={StaticResource RunPreviewToolTipConverter}}"
-                                  IsEnabled="{Binding DynamicRunEnabled, Converter={StaticResource RunPreviewConverter}}"/>                       
+                                  Focusable="False" />
+
                         <MenuItem Focusable="False"
                                   Header="{x:Static p:Resources.DynamoViewSettingMenuLengthUnits}"
                                   Name="LengthUnitsMenu">
@@ -570,7 +562,7 @@
                                       IsChecked="{Binding PreferenceSettings.LengthUnit,Converter={StaticResource EnumToBoolConverter},ConverterParameter=Meter, Mode=TwoWay}"
                                       Command="{Binding SetLengthUnitCommand}"
                                       CommandParameter="Meter"
-                                       Header="{x:Static p:Resources.DynamoViewSettingMenuMeter}" />
+                                      Header="{x:Static p:Resources.DynamoViewSettingMenuMeter}" />
                         </MenuItem>
                         <MenuItem Focusable="False"
                                   Header="{x:Static p:Resources.DynamoViewSettingMenuAreaUnits}"
@@ -769,7 +761,6 @@
                                   Header="{x:Static p:Resources.DynamoViewDebugMenuDumpLibrary}"
                                   Command="{Binding DumpLibraryToXmlCommand}"
                                   IsEnabled="True" />
->>>>>>> 548ac9bc53b706ac3418e48fbae443b713346a50:src/DynamoCoreWpf/Views/DynamoView.xaml
                     </MenuItem>
                 </Menu>
 
