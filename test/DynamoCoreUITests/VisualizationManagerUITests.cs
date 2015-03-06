@@ -28,20 +28,13 @@ namespace DynamoCoreUITests
             }
         }
 
-        [SetUp]
-        public void Setup()
-        {
-            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
-            ws.DynamicRunEnabled = false;
-        }
-
         [Test]
         public void NothingIsVisualizedWhenThereIsNothingToVisualize()
         {
             var viz = ViewModel.VisualizationManager;
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             Assert.AreEqual(0, BackgroundPreview.Points.Count);
             Assert.AreEqual(0, BackgroundPreview.Lines.Count);
@@ -108,8 +101,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_points_line.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //we start with all previews disabled
             //the graph is two points feeding into a line
@@ -153,8 +146,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_points_line.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //we start with all previews disabled
             //the graph is two points feeding into a line
@@ -175,7 +168,6 @@ namespace DynamoCoreUITests
             //the render descriptions will still be around for those
             //nodes, but watch 3D will not be showing them
             var nodeViews = View.NodeViewsInFirstWorkspace().OfNodeModelType<Watch3D>().ToList();
-            
             Assert.AreEqual(1, nodeViews.Count());
 
             var watch3DNodeView = nodeViews.First();
@@ -197,8 +189,8 @@ namespace DynamoCoreUITests
             Assert.AreEqual(4, model.CurrentWorkspace.Nodes.Count);
             Assert.AreEqual(4, model.CurrentWorkspace.Connectors.Count());
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //ensure that the number of visualizations matches the 
             //number of pieces of geometry in the collection
@@ -212,7 +204,7 @@ namespace DynamoCoreUITests
             Assert.AreEqual(GetTotalDrawablesInModel(), BackgroundPreview.Points.Count);
         }
 
-        [Test, Category("Failure")]
+        [Test]
         public void CleansUpGeometryWhenNodesAreDisconnected()
         {
             //test to ensure that when nodes are disconnected 
@@ -223,8 +215,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_points_line.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //ensure the correct representations
 
@@ -253,8 +245,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_thicken.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             Assert.IsTrue(BackgroundPreview.Mesh.TriangleIndices.Count > 0);
 
@@ -269,8 +261,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_cuboid.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //var meshes = viz.Visualizations.SelectMany(x => x.Value.Meshes);
             Assert.AreEqual(36, BackgroundPreview.Mesh.Positions.Count);
@@ -284,8 +276,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_coordinateSystem.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             Assert.AreEqual(2, BackgroundPreview.XAxes.Count);
             Assert.AreEqual(2, BackgroundPreview.YAxes.Count);
@@ -300,8 +292,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_python.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //total points are the two strips of points at the top and
             //bottom of the mesh, duplicated 11x2x2 plus the one mesh
@@ -322,8 +314,8 @@ namespace DynamoCoreUITests
             Assert.AreEqual(4, model.CurrentWorkspace.Nodes.Count);
             Assert.AreEqual(4, model.CurrentWorkspace.Connectors.Count());
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             Assert.AreEqual(6, BackgroundPreview.Points.Count);
 
@@ -345,8 +337,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_points.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //ensure that we have some visualizations
             Assert.Greater(BackgroundPreview.Points.Count, 0);
@@ -368,8 +360,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_customNode.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //ensure that we have some visualizations
             Assert.Greater(BackgroundPreview.Points.Count, 0);
@@ -381,8 +373,8 @@ namespace DynamoCoreUITests
             string openPath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\ASM_points_line_noPreview.dyn");
             ViewModel.OpenCommand.Execute(openPath);
 
-            // run the expression
-            ViewModel.HomeSpace.Run();
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             //all nodes are set to not preview in the file
             //ensure that we have no visualizations
@@ -407,9 +399,11 @@ namespace DynamoCoreUITests
             var cbn = model.CurrentWorkspace.Nodes.FirstOrDefault(x => x.GUID.ToString() == "fdec3b9b-56ae-4d01-85c2-47b8425e3130") as CodeBlockNodeModel;
             Assert.IsNotNull(cbn);
             cbn.SetCodeContent("Point.ByCoordinates(a<1>,a<1>,a<1>);");
-            
+
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
+
             // run the expression
-            Assert.DoesNotThrow(() => ViewModel.HomeSpace.Run());
             Assert.AreEqual(4, BackgroundPreview.Points.Count());
 
             //label displayed should be possible now because
@@ -446,7 +440,8 @@ namespace DynamoCoreUITests
             Assert.IsTrue(ViewModel.HomeSpace.Nodes.All(x => x.DisplayLabels != true));
 
             // run the expression
-            Assert.DoesNotThrow(() => ViewModel.HomeSpace.Run());
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
 
             Assert.AreEqual(6, BackgroundPreview.Lines.Count()/2);
 
@@ -469,7 +464,10 @@ namespace DynamoCoreUITests
             var model = ViewModel.Model;
             var examplePath = Path.Combine(GetTestDirectory(ExecutingDirectory), @"core\visualization\");
             ViewModel.OpenCommand.Execute(Path.Combine(examplePath, "visualize_line_incustom.dyn"));
-            ViewModel.HomeSpace.Run();
+
+            var ws = ViewModel.Model.CurrentWorkspace as HomeWorkspaceModel;
+            ws.RunSettings.RunType = RunType.Automatic;
+
             Assert.AreEqual(1, BackgroundPreview.Lines.Count / 2);
 
             // Convert a DSFunction node Line.ByPointDirectionLength to custom node.
